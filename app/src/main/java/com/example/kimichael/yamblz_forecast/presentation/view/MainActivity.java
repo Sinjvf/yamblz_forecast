@@ -1,21 +1,25 @@
 package com.example.kimichael.yamblz_forecast.presentation.view;
 
 import android.animation.ValueAnimator;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.DecelerateInterpolator;
 
 import com.example.kimichael.yamblz_forecast.App;
+import com.example.kimichael.yamblz_forecast.BuildConfig;
 import com.example.kimichael.yamblz_forecast.R;
 import com.example.kimichael.yamblz_forecast.presentation.view.about.AboutFragment;
 import com.example.kimichael.yamblz_forecast.presentation.view.forecast.ForecastFragment;
@@ -47,6 +51,19 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // just example
+        try {
+            final ApplicationInfo appInfo =
+                    getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            final String metaKey = appInfo.metaData.getString("test.me.plz");
+            if (TextUtils.equals(metaKey, BuildConfig.TEST_ME)) {
+                Log.d("PROFIT", "PROFIT");
+            }
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -54,9 +71,9 @@ public class MainActivity extends AppCompatActivity
         homeDrawable = new DrawerArrowDrawable(toolbar.getContext());
         toolbar.setNavigationIcon(homeDrawable);
         toolbar.setNavigationOnClickListener(view -> {
-            if (drawer.isDrawerOpen(GravityCompat.START)){
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
-            } else if (isHomeAsUp){
+            } else if (isHomeAsUp) {
                 onBackPressed();
             } else {
                 drawer.openDrawer(GravityCompat.START);
@@ -104,7 +121,6 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         changeFragment(chosenFragment);
     }
-
 
     @Override
     protected void onDestroy() {
@@ -173,7 +189,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void setHomeAsUp(boolean isHomeAsUp){
+    private void setHomeAsUp(boolean isHomeAsUp) {
         if (this.isHomeAsUp != isHomeAsUp) {
             this.isHomeAsUp = isHomeAsUp;
             ValueAnimator anim = isHomeAsUp ? ValueAnimator.ofFloat(0, 1) : ValueAnimator.ofFloat(1, 0);
