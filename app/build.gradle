@@ -79,5 +79,14 @@ dependencies {
     testCompile libraries.leakCanaryNoOp
 
     compile libraries.googlePlay
+    androidTestCompile (libraries.espressoContrib){
+        exclude group: 'com.android.support'
+    }
+    androidTestCompile (libraries.espressoCore){
+        exclude group: 'com.android.support'
+    }
+
+    testCompile libraries.robolectric
+    testCompile libraries.mockito
 
 }

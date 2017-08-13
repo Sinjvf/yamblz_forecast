@@ -25,6 +25,10 @@ ext.versions = [
         leakCanary: "1.5.1",
         googlePlay: "11.0.2",
 
+        espresso:"2.2.2",
+
+        robolectric:"3.4",
+        mockito:"1.10.19"
 ]
 
 ext.libraries = [
@@ -62,5 +66,10 @@ ext.libraries = [
         leakCanaryNoOp : "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary",
 
         googlePlay: "com.google.android.gms:play-services-places:$versions.googlePlay",
+
+        espressoContrib: "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
+        espressoCore: "com.android.support.test.espresso:espresso-core:$versions.espresso",
+        robolectric: "org.robolectric:robolectric:$versions.robolectric",
+        mockito:"org.mockito:mockito-core:$versions.mockito"
 
 ]
