@@ -12,12 +12,12 @@ public class ForecastInfo {
     private final double minTemp;
     private final double maxTemp;
     private final int weatherId;
-    private final int windSpeed;
-    private final int humidity;
-    private final int pressure;
+    private final double windSpeed;
+    private final double humidity;
+    private final double pressure;
     private final String description;
 
-    public ForecastInfo(String city, double temp, double minTemp, double maxTemp, int weatherId, int windSpeed, int humidity, int pressure, String description) {
+    public ForecastInfo(String city, double temp, double minTemp, double maxTemp, int weatherId, double windSpeed, double humidity, double pressure, String description) {
         this.city = city;
         this.temp = temp;
         this.minTemp = minTemp;
@@ -49,11 +49,11 @@ public class ForecastInfo {
         return weatherId;
     }
 
-    public int getWindSpeed() {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
-    public int getHumidity() {
+    public double getHumidity() {
         return humidity;
     }
 
@@ -61,7 +61,7 @@ public class ForecastInfo {
         return description;
     }
 
-    public int getPressure() {
+    public double getPressure() {
         return pressure;
     }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="temp_units">
+    <string-array name="temp_units" translatable="false">
         <item>@string/celcius</item>
         <item>@string/fahrenheit</item>
     </string-array>
 
-    <string-array name="interval">
+    <string-array name="interval" translatable="false">
         <item>@string/interval_hour</item>
         <item>@string/interval_two_hours</item>
         <item>@string/interval_three_hours</item>
@@ -13,7 +13,7 @@
         <item>@string/interval_day</item>
     </string-array>
 
-    <string-array name="interval_values">
+    <string-array name="interval_values" translatable="false">
         <item>3600</item>
         <item>7200</item>
         <item>10800</item>

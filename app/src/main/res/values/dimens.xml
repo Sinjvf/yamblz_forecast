@@ -6,4 +6,10 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="small_padding">16dp</dimen>
+
+
+    <dimen name="image_size">150dp</dimen>
+    <dimen name="big_text">38sp</dimen>
+    <dimen name="medium_text">32sp</dimen>
+    <dimen name="small_text">16sp</dimen>
 </resources>

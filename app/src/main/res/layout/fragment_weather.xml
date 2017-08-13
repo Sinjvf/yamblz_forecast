@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_weather">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,8 +11,8 @@
         android:baselineAligned="true">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size"
             android:id="@+id/weather_icon"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/small_padding"/>
@@ -29,49 +30,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/city_name"
-                android:textSize="48sp"
+                android:textSize="@dimen/big_text"
                 android:paddingBottom="@dimen/small_padding"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/temp"
-                android:textSize="32sp"
+                android:textSize="@dimen/medium_text"
                 android:paddingBottom="@dimen/small_padding"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/min_max_temp"
-                android:textSize="18sp"
+                android:textSize="@dimen/small_text"
                 android:paddingBottom="@dimen/small_padding"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/humidity"
-                android:textSize="18sp"
+                android:textSize="@dimen/small_text"
                 android:paddingBottom="@dimen/small_padding"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/pressure"
-                android:textSize="18sp"
+                android:textSize="@dimen/small_text"
                 android:paddingBottom="@dimen/small_padding"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/wind_speed"
-                android:textSize="18sp"
+                android:textSize="@dimen/small_text"
                 android:paddingBottom="@dimen/small_padding"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/description"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/small_text"/>
 
         </LinearLayout>
 

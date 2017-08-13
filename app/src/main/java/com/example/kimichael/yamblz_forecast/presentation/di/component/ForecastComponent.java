@@ -1,9 +1,11 @@
 package com.example.kimichael.yamblz_forecast.presentation.di.component;
 
 import com.example.kimichael.yamblz_forecast.domain.interactor.forecast.ForecastInteractor;
+import com.example.kimichael.yamblz_forecast.domain.interactor.settings.SettingsInteractor;
 import com.example.kimichael.yamblz_forecast.domain.service.forecast.ForecastJobService;
 import com.example.kimichael.yamblz_forecast.presentation.di.module.ForecastModule;
 import com.example.kimichael.yamblz_forecast.presentation.di.module.ForecastScreenModule;
+import com.example.kimichael.yamblz_forecast.presentation.di.module.SettingsScreenModule;
 import com.example.kimichael.yamblz_forecast.presentation.di.scope.ForecastScope;
 
 import javax.inject.Singleton;
@@ -19,7 +21,9 @@ import dagger.Subcomponent;
 public interface ForecastComponent {
 
     ForecastScreenComponent plus(ForecastScreenModule forecastScreenModule);
+    SettingsScreenComponent plus(SettingsScreenModule settingsScreenModule);
 
     void inject(ForecastInteractor forecastInteractor);
+    void inject(SettingsInteractor settingsInteractor);
     void inject(ForecastJobService forecastJobService);
 }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,20 +20,16 @@ import android.widget.Toast;
 
 import com.example.kimichael.yamblz_forecast.App;
 import com.example.kimichael.yamblz_forecast.R;
-import com.example.kimichael.yamblz_forecast.data.network.forecast.response.Forecast;
 import com.example.kimichael.yamblz_forecast.domain.interactor.forecast.ForecastInfo;
-import com.example.kimichael.yamblz_forecast.presentation.di.module.ForecastModule;
-import com.example.kimichael.yamblz_forecast.presentation.di.module.ForecastScreenModule;
 import com.example.kimichael.yamblz_forecast.presentation.presenter.forecast.ForecastPresenter;
+import com.example.kimichael.yamblz_forecast.utils.PreferencesManager;
 import com.example.kimichael.yamblz_forecast.utils.Utility;
 
-import org.w3c.dom.Text;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.internal.Util;
 
 public class ForecastFragment extends Fragment implements ForecastView {
 
@@ -118,16 +115,17 @@ public class ForecastFragment extends Fragment implements ForecastView {
 
     @Override
     public void showForecast(ForecastInfo forecast) {
-        cityName.setText(forecast.getCity());
-        temperature.setText(Utility.formatTemperature(getContext(), forecast.getTemp()));
+        PreferencesManager manager  = new PreferencesManager(getContext());
+        cityName.setText(manager.getPlace().getName());
+        temperature.setText(Utility.formatTemperature(manager, getContext(), forecast.getTemp()));
         minMaxTemp.setText(getString(R.string.format_min_max_temp,
-                Utility.formatTemperature(getContext(), forecast.getMinTemp()),
-                Utility.formatTemperature(getContext(), forecast.getMaxTemp())));
-        weatherIcon.setImageDrawable(getResources().getDrawable(
+                Utility.formatTemperature(manager, getContext(), forecast.getMinTemp()),
+                Utility.formatTemperature(manager, getContext(), forecast.getMaxTemp())));
+        weatherIcon.setImageDrawable(ContextCompat.getDrawable(getActivity(),
                 Utility.getImageForWeatherCondition(forecast.getWeatherId())));
-        windSpeed.setText(getString(R.string.format_wind, forecast.getWindSpeed()));
-        pressure.setText(getString(R.string.format_pressure, forecast.getPressure()));
-        humidity.setText(getString(R.string.format_humidity, forecast.getHumidity()));
+        windSpeed.setText(getString(R.string.format_wind, (int)forecast.getWindSpeed()));
+        pressure.setText(getString(R.string.format_pressure, (int)forecast.getPressure()));
+        humidity.setText(getString(R.string.format_humidity, (int)forecast.getHumidity()));
         description.setText(forecast.getDescription());
     }
 

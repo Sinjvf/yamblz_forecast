@@ -14,10 +14,13 @@ public interface OpenWeatherClient {
 
     String BASE_URL = "http://api.openweathermap.org/data/2.5/";
 
-    String CITY_ID = "id";
+    String CITY_LAT = "lat";
+    String CITY_LON = "lon";
     String LANGUAGE = "lang";
     String RUSSIAN = "ru";
+    String APPID = "APPID";
 
     @GET("weather")
-    Single<Forecast> getForecast(@Query(CITY_ID) String cityId, @Query(LANGUAGE) String language);
+    Single<Forecast> getForecast(@Query(CITY_LAT) String cityLat, @Query(CITY_LON) String cityLon,
+                                 @Query(LANGUAGE) String language, @Query(APPID) String weatherKey);
 }

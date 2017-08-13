@@ -2,8 +2,8 @@ package com.example.kimichael.yamblz_forecast.data;
 
 import com.example.kimichael.yamblz_forecast.data.network.forecast.response.Forecast;
 import com.example.kimichael.yamblz_forecast.domain.interactor.forecast.ForecastRequest;
+import com.example.kimichael.yamblz_forecast.utils.PlaceData;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -12,6 +12,6 @@ import io.reactivex.Single;
 public interface ForecastRepository {
 
     Single<Forecast> getForecast(ForecastRequest request);
-    Single<Forecast> updateForecast(String cityId);
+    Single<Forecast> updateForecast(PlaceData cityLatLng);
     void saveForecast(Forecast forecast);
 }

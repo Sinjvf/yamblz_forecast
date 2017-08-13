@@ -9,7 +9,7 @@ public class Temp {
     @SerializedName("temp")
     private Double temp;
     @SerializedName("pressure")
-    private Integer pressure;
+    private Double pressure;
     @SerializedName("humidity")
     private Integer humidity;
     @SerializedName("temp_min")
@@ -25,11 +25,11 @@ public class Temp {
         this.temp = temp;
     }
 
-    public Integer getPressure() {
+    public Double getPressure() {
         return pressure;
     }
 
-    public void setPressure(Integer pressure) {
+    public void setPressure(Double pressure) {
         this.pressure = pressure;
     }
 

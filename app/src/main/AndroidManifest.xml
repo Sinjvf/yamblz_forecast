@@ -29,6 +29,9 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
             </intent-filter>
         </service>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCcgW5x7Y5TYjak-H2Ad29rpl7OV0Myxt4"/>
     </application>
 
 </manifest>

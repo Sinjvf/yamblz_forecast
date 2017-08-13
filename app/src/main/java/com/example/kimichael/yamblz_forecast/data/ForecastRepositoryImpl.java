@@ -3,9 +3,12 @@ package com.example.kimichael.yamblz_forecast.data;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import com.example.kimichael.yamblz_forecast.BuildConfig;
 import com.example.kimichael.yamblz_forecast.data.network.forecast.OpenWeatherClient;
 import com.example.kimichael.yamblz_forecast.data.network.forecast.response.Forecast;
 import com.example.kimichael.yamblz_forecast.domain.interactor.forecast.ForecastRequest;
+import com.example.kimichael.yamblz_forecast.utils.PlaceData;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
@@ -40,12 +43,14 @@ public class ForecastRepositoryImpl implements ForecastRepository {
                     gson.fromJson(sharedPreferences
                                     .getString(PREF_LAST_RESPONSE, null), Forecast.class));
         else
-            return openWeatherClient.getForecast(request.getCityId(), OpenWeatherClient.RUSSIAN);
+            return openWeatherClient.getForecast(request.getCityLat(), request.getCityLon(), OpenWeatherClient.RUSSIAN, BuildConfig.OPEN_WEATHER_MAP_API_KEY);
     }
 
     @Override
-    public Single<Forecast> updateForecast(String cityId) {
-        return openWeatherClient.getForecast(cityId, OpenWeatherClient.RUSSIAN);
+    public Single<Forecast> updateForecast(PlaceData cityLatLng) {
+        String lat = String.valueOf(cityLatLng.getLatitude());
+        String lng = String.valueOf(cityLatLng.getLongitude());
+        return openWeatherClient.getForecast(lat, lng, OpenWeatherClient.RUSSIAN, BuildConfig.OPEN_WEATHER_MAP_API_KEY);
     }
 
     @Override

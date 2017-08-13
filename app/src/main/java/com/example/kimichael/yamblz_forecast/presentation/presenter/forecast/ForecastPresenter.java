@@ -6,6 +6,8 @@ import com.example.kimichael.yamblz_forecast.domain.interactor.forecast.Forecast
 import com.example.kimichael.yamblz_forecast.domain.interactor.forecast.ForecastRequest;
 import com.example.kimichael.yamblz_forecast.presentation.BasePresenter;
 import com.example.kimichael.yamblz_forecast.presentation.view.forecast.ForecastView;
+import com.example.kimichael.yamblz_forecast.utils.Utility;
+import com.google.android.gms.maps.model.LatLng;
 
 import javax.inject.Inject;
 
@@ -21,8 +23,6 @@ public class ForecastPresenter extends BasePresenter<ForecastView> {
 
     private ForecastInteractor forecastInteractor;
     private ForecastInfo cachedForecast;
-    // Temporary Moscow city id
-    public static final String MOSCOW_ID = "524901";
 
     @Inject
     public ForecastPresenter(ForecastInteractor forecastInteractor) {
@@ -30,11 +30,15 @@ public class ForecastPresenter extends BasePresenter<ForecastView> {
     }
 
     public void getForecast(boolean forceUpdate) {
-        if (cachedForecast != null && !forceUpdate) {
+        if (cachedForecast != null && !forceUpdate && getView() != null) {
             getView().showForecast(cachedForecast);
             return;
         }
-        forecastInteractor.execute(new SingleObserver<ForecastInfo>() {
+        forecastInteractor.execute(getObserver(), forceUpdate);
+    }
+
+    public SingleObserver<ForecastInfo> getObserver(){
+        return new SingleObserver<ForecastInfo>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
@@ -42,14 +46,16 @@ public class ForecastPresenter extends BasePresenter<ForecastView> {
 
             @Override
             public void onSuccess(@NonNull ForecastInfo forecastInfo) {
-                getView().showForecast(forecastInfo);
+                if(getView() != null)
+                    getView().showForecast(forecastInfo);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                getView().showError();
+                if(getView() != null)
+                    getView().showError();
             }
-        }, new ForecastRequest(MOSCOW_ID, forceUpdate));
+        };
     }
 
 }

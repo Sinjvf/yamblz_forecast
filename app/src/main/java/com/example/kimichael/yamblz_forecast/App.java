@@ -9,9 +9,12 @@ import com.example.kimichael.yamblz_forecast.presentation.di.component.AppCompon
 import com.example.kimichael.yamblz_forecast.presentation.di.component.DaggerAppComponent;
 import com.example.kimichael.yamblz_forecast.presentation.di.component.ForecastComponent;
 import com.example.kimichael.yamblz_forecast.presentation.di.component.ForecastScreenComponent;
+import com.example.kimichael.yamblz_forecast.presentation.di.component.SettingsScreenComponent;
 import com.example.kimichael.yamblz_forecast.presentation.di.module.AppModule;
 import com.example.kimichael.yamblz_forecast.presentation.di.module.ForecastModule;
 import com.example.kimichael.yamblz_forecast.presentation.di.module.ForecastScreenModule;
+import com.example.kimichael.yamblz_forecast.presentation.di.module.SettingsScreenModule;
+import com.example.kimichael.yamblz_forecast.utils.PreferencesManager;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -23,6 +26,7 @@ public class App extends Application {
     private AppComponent appComponent;
     private ForecastComponent forecastComponent;
     private ForecastScreenComponent forecastScreenComponent;
+    private SettingsScreenComponent settingsScreenComponent;
 
     @Override
     public void onCreate() {
@@ -38,9 +42,10 @@ public class App extends Application {
         setInstance(this);
         appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        if (!sp.contains(getString(R.string.pref_key_sync_interval))) {
-            int interval = Integer.valueOf(sp.getString(getString(R.string.pref_key_sync_interval), "3600"));
-            sp.edit().putString(getString(R.string.pref_key_sync_interval), "3600").apply();
+        PreferencesManager manager = new PreferencesManager(sp);
+        if (!manager.containInterval()) {
+            int interval = 3600;
+            manager.saveInterval();
             ForecastJobService.scheduleSync(this, interval);
         }
     }
@@ -77,6 +82,17 @@ public class App extends Application {
 
     public void releaseForecastScreenComponent() {
         forecastScreenComponent = null;
+    }
+
+    public SettingsScreenComponent getSettingsScreenComponent() {
+        if (settingsScreenComponent == null) {
+            settingsScreenComponent = getForecastComponent().plus(new SettingsScreenModule());
+        }
+        return settingsScreenComponent;
+    }
+
+    public void releaseSettingsScreenComponent() {
+        settingsScreenComponent = null;
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.kimichael.yamblz_forecast.presentation.view;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -29,11 +30,16 @@ public class MainActivity extends AppCompatActivity
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({FRAGMENT_STATUS_WEATHER, FRAGMENT_STATUS_SETTINGS, FRAGMENT_STATUS_ABOUT, FRAGMENT_STATUS_NOT_CHOSEN})
-    public @interface ChosenFragmentStatus {}
+    private @interface ChosenFragmentStatus {}
     public static final int FRAGMENT_STATUS_NOT_CHOSEN = -1;
     public static final int FRAGMENT_STATUS_WEATHER = 0;
     public static final int FRAGMENT_STATUS_SETTINGS = 1;
     public static final int FRAGMENT_STATUS_ABOUT = 2;
+
+    public static final String TAG_SETTINGS = "settings";
+    public static final String TAG_FORECAST = "forecast";
+    public static final String TAG_ABOUT = "about";
+
 
 
     private @MainActivity.ChosenFragmentStatus int chosenFragment;
@@ -77,23 +83,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(getString(R.string.key_chosen_fragment), chosenFragment);
         super.onSaveInstanceState(outState);
@@ -125,7 +114,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         switch (id) {
@@ -152,24 +141,27 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment;
         this.chosenFragment = chosenFragment;
-
+        String tag ;
         switch (chosenFragment) {
             case FRAGMENT_STATUS_SETTINGS:
                 fragment = SettingsFragment.newInstance();
+                tag = TAG_SETTINGS;
                 setHomeAsUp(true);
                 break;
             case FRAGMENT_STATUS_ABOUT:
                 fragment = AboutFragment.newInstance();
+                tag = TAG_ABOUT;
                 setHomeAsUp(true);
                 break;
             case FRAGMENT_STATUS_WEATHER:
             case FRAGMENT_STATUS_NOT_CHOSEN:
             default:
                 fragment = ForecastFragment.newInstance();
+                tag = TAG_FORECAST;
                 setHomeAsUp(false);
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_container, fragment, tag).commit();
 
     }
 

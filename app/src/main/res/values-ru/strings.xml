@@ -13,7 +13,7 @@
     <string name="celcius">Цельсий</string>
     <string name="fahrenheit">Фаренгейт</string>
     <string name="no_internet_message">Пожалуйста, проверьте свое подключение к интернету</string>
-    <string name="pref_temp_units">Единицы измерения</string>
+    <string name="pref_temp_units_title">Единицы измерения</string>
     <string name="format_humidity">Влажность: %d %%</string>
     <string name="format_pressure">Давление: %d mm Hg</string>
     <string name="format_wind">Ветер: %d м/с</string>
@@ -23,4 +23,6 @@
     <string name="interval_three_hours">Три часа</string>
     <string name="interval_two_hours">Два часа</string>
     <string name="pref_sync_title">Интервал обновления</string>
+
+    <string name="choose_city">Выберите город</string>
 </resources>

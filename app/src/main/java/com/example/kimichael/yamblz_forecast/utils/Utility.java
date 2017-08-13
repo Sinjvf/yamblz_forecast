@@ -2,6 +2,7 @@ package com.example.kimichael.yamblz_forecast.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.DrawableRes;
 import android.support.v7.preference.PreferenceManager;
 
 import com.example.kimichael.yamblz_forecast.R;
@@ -11,20 +12,19 @@ import com.example.kimichael.yamblz_forecast.R;
  */
 public class Utility {
 
-    public static String formatTemperature(Context context, double temperature) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+    public static String formatTemperature(PreferencesManager manager, Context context, double temperature) {
         double temp;
-        if (sp.getString(context.getString(R.string.pref_key_temp_units),
-                context.getString(R.string.celcius)).equals(context.getString(R.string.celcius))) {
+        if (manager.isTempCelsius()) {
             temp = temperature - 273.15d;
-//            temp = 9 * temperature / 5 + 32;
         } else {
             temp = temperature * 9 / 5 - 459.67d;
         }
-        return context.getString(R.string.format_temperature, temp);
+        return context.getString(R.string.format_temperature, temp, manager.getUnit());
     }
 
-    public static int getImageForWeatherCondition(int weatherId) {
+    public static
+    @DrawableRes
+    int getImageForWeatherCondition(int weatherId) {
         if (weatherId >= 200 && weatherId <= 232) {
             return R.drawable.art_storm;
         } else if (weatherId >= 300 && weatherId <= 321) {
@@ -39,7 +39,7 @@ public class Utility {
             return R.drawable.art_rain;
         } else if (weatherId >= 701 && weatherId <= 761) {
             return R.drawable.art_fog;
-        } else if (weatherId == 761 || weatherId == 781) {
+        } else if ( weatherId == 781) {
             return R.drawable.art_storm;
         } else if (weatherId == 800) {
             return R.drawable.art_clear;
@@ -48,7 +48,7 @@ public class Utility {
         } else if (weatherId >= 802 && weatherId <= 804) {
             return R.drawable.art_clouds;
         }
-        return 0;
+        return R.drawable.art_clear;
     }
 
 }
