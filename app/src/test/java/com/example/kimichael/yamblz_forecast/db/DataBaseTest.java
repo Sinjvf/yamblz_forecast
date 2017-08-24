@@ -1,7 +1,6 @@
 package com.example.kimichael.yamblz_forecast.db;
 
 import android.content.Context;
-import android.test.RenamingDelegatingContext;
 
 import com.example.kimichael.yamblz_forecast.data.common.ForecastInfo;
 import com.example.kimichael.yamblz_forecast.data.common.ForecastInfoSQLiteTypeMapping;
@@ -9,10 +8,8 @@ import com.example.kimichael.yamblz_forecast.data.common.PlaceData;
 import com.example.kimichael.yamblz_forecast.data.common.PlaceDataSQLiteTypeMapping;
 import com.example.kimichael.yamblz_forecast.data.database.DbClientImpl;
 import com.example.kimichael.yamblz_forecast.data.database.DbOpenHelper;
-import com.example.kimichael.yamblz_forecast.domain.interactor.forecast.ForecastInteractor;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
-import com.squareup.haha.guava.collect.Lists$ReverseList;
 
 import org.junit.Before;
 import org.junit.Test;
