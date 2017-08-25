@@ -20,14 +20,14 @@ public class SchedulersModule {
     @Provides
     @Singleton
     @Named(JOB)
-    public Scheduler provideJobScheduler() {
+    Scheduler provideJobScheduler() {
         return Schedulers.io();
     }
 
     @Provides
     @Singleton
     @Named(UI)
-    public Scheduler provideUIScheduler() {
+    Scheduler provideUIScheduler() {
         return AndroidSchedulers.mainThread();
     }
 }

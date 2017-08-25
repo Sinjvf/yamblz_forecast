@@ -1,7 +1,8 @@
 package com.example.kimichael.yamblz_forecast.data.network.forecast;
 
 
-import com.example.kimichael.yamblz_forecast.data.network.forecast.response.Forecast;
+import com.example.kimichael.yamblz_forecast.data.network.forecast.response.ForecastResponse;
+import com.example.kimichael.yamblz_forecast.data.network.forecast.response.WeatherResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -17,10 +18,8 @@ public interface OpenWeatherClient {
     String CITY_LAT = "lat";
     String CITY_LON = "lon";
     String LANGUAGE = "lang";
-    String RUSSIAN = "ru";
-    String APPID = "APPID";
 
-    @GET("weather")
-    Single<Forecast> getForecast(@Query(CITY_LAT) String cityLat, @Query(CITY_LON) String cityLon,
-                                 @Query(LANGUAGE) String language, @Query(APPID) String weatherKey);
+    @GET("forecast")
+    Single<ForecastResponse> getForecast(@Query(CITY_LAT) String cityLat, @Query(CITY_LON) String cityLon,
+                                         @Query(LANGUAGE) String language);
 }

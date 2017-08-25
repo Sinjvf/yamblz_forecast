@@ -1,30 +1,27 @@
 
 package com.example.kimichael.yamblz_forecast.data.network.forecast.response;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 public class Coord {
 
     @SerializedName("lon")
-    private Double lon;
+    private double lon;
     @SerializedName("lat")
-    private Double lat;
+    private double lat;
 
-    public Double getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon(Double lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 
-    public Double getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
-
 }

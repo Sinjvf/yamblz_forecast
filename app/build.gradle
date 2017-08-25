@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'jacoco-android'
 
 android {
     signingConfigs {
@@ -13,12 +14,17 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
+        def googleKey = 'AIzaSyCcgW5x7Y5TYjak-H2Ad29rpl7OV0Myxt4'
+        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', '\"c3ebefdb656161082df40c099ddf1977\"'
+        buildConfigField 'String', 'GOOGLE_API_KEY', "\"$googleKey\""
+        manifestPlaceholders = [google_key: googleKey]
         applicationId "com.example.kimichael.yamblz_forecast"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -26,17 +32,49 @@ android {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    buildTypes.each {
-        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', '\"c3ebefdb656161082df40c099ddf1977\"'
-        it.buildConfigField 'String', 'GOOGLE_AUTOCOMPLETE_API_KEY', '\"AIzaSyCcgW5x7Y5TYjak-H2Ad29rpl7OV0Myxt4\"'
+        debug {
+            debuggable true
+        }
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+jacocoAndroidUnitTestReport {
+    excludes += [
+            //dagger's class
+            '**/*_Factory*.*',
+            '**/*_Provide*.*',
+            '**/*_MembersInjector*.*',
+            '**/*AppComponent*.*',
+            '**/di/**/*.*',
+            //butterknife
+            '**/*_ViewBinding*.*',
+            //pojo
+            '**/common/**/*.*',
+            '**/response/**/*.*',
+            '**/*Request*.*',
+            //holder, fragment, activities
+            '**/*Holder*.*',
+            '**/*Fragment*.*',
+            '**/*Activity*.*',
+            '**/*Adapter*.*',
+            '**/*Service*.*',
+            '**/*App*.*',
+            //storIO
+            '**/*SQLiteTypeMapping*.*',
+            '**/*Table*.*',
+
+    ]
+    csv.enabled false
+    html.enabled true
+    xml.enabled false
 }
 
 dependencies {
@@ -44,9 +82,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
     compile libraries.supportAppCompat
     compile libraries.supportDesign
-    compile libraries.supportConstraint
     compile libraries.supportSupport
     compile libraries.supportPreference
 
@@ -58,8 +97,12 @@ dependencies {
 
     compile libraries.retrofit
 
+    compile libraries.rxJava1
     compile libraries.rxJava
     compile libraries.rxAndroid
+    compile libraries.rxBinding
+    compile libraries.rxBindingV4
+    compile libraries.rxBindingV7
 
     compile libraries.butterknife
     annotationProcessor libraries.butterknifeCompiler
@@ -70,7 +113,7 @@ dependencies {
     compile libraries.retrofitConverter
     compile libraries.okHttpInterceptor
 
-    compile libraries.apacheCommons
+    //  compile libraries.apacheCommons
 
     compile libraries.firebaseJobDispatcher
 
@@ -78,11 +121,18 @@ dependencies {
     releaseCompile libraries.leakCanaryNoOp
     testCompile libraries.leakCanaryNoOp
 
+    compile libraries.timber
+
+    compile libraries.storeIO
+    annotationProcessor libraries.storeIOCompiler
+    compile libraries.storeIOAnnotations
+
     compile libraries.googlePlay
-    androidTestCompile (libraries.espressoContrib){
+
+    androidTestCompile(libraries.espressoContrib) {
         exclude group: 'com.android.support'
     }
-    androidTestCompile (libraries.espressoCore){
+    androidTestCompile(libraries.espressoCore) {
         exclude group: 'com.android.support'
     }
 

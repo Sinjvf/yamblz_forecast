@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kimichael.yamblz_forecast.R;
+import com.example.kimichael.yamblz_forecast.presentation.view.ToolbarOwner;
 
 public class AboutFragment extends Fragment {
 
     public AboutFragment() {}
 
 
-    public static AboutFragment newInstance() {
+    public static AboutFragment getInstance() {
         AboutFragment fragment = new AboutFragment();
         return fragment;
     }
@@ -31,4 +32,16 @@ public class AboutFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_about, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((ToolbarOwner) getActivity()).setToolbarText(getString(R.string.action_about));
+        ((ToolbarOwner) getActivity()).lockDrawer(true);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((ToolbarOwner) getActivity()).lockDrawer(false);
+    }
 }

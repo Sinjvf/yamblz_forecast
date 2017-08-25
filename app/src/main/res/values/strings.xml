@@ -1,4 +1,4 @@
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources >
     <string name="app_name">Yamblz_Forecast</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -28,14 +28,27 @@
     <string name="key_chosen_fragment" translatable="false">chosen_fragment</string>
 
     <string name="format_temperature" translatable="false">%1.0f\u00B0%s</string>
-    <string name="format_humidity">Humidity: %d %%</string>
-    <string name="format_wind">Wind: %d m/s</string>
+    <string name="format_humidity">%d %%</string>
+    <string name="format_wind">%d m/s</string>
     <string name="format_pressure">Pressure: %d mm Hg</string>
     <string name="format_min_max_temp" formatted="false" translatable="false">%s - %s</string>
 
     <string name="action_refresh">Refresh</string>
+    <string name="action_delete">Delete</string>
+
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
     <string name="no_internet_message">Please, check your internet connection</string>
     <string name="ok" translatable="false">Ok</string>
 
     <string name="choose_city">Choose the city</string>
+
+
+    <string name="delete_title">%s is a good city</string>
+    <string name="delete_text">Are you sure you want to delete it from favorites?</string>
+    <string name="delete_ok">Delete</string>
+    <string name="delete_cancel">Nooo!</string>
+
+    <string name="add_city">Add new city</string>
+    <string name="new_city">New city</string>
 </resources>

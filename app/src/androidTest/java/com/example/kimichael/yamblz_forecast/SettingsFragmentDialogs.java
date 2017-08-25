@@ -35,13 +35,17 @@ import static org.hamcrest.Matchers.containsString;
 
 @RunWith(AndroidJUnit4.class)
 public class SettingsFragmentDialogs {
-
+    boolean isTablet;
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class);
-
+    @Before
+    public void init() {
+        isTablet = rule.getActivity().isTablet();
+    }
     @Before
     public void navigateToSettings() {
         //open settings fragment
+        if(isTablet) return;
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(isOpen()));
         onView(withId(R.id.nav_view)).perform(navigateTo(R.id.nav_settings));
@@ -51,17 +55,21 @@ public class SettingsFragmentDialogs {
     }
     @Test
     public void openAndCloseIntervals(){
+
+        if(isTablet) return;
         closeDialogsByBackPress(R.id.sync_interval_button);
     }
 
     @Test
     public void openAndCloseTempUnits(){
+        if(isTablet) return;
         closeDialogsByBackPress(R.id.temp_units_button);
     }
 
 
     public void closeDialogsByBackPress(@IdRes int id){
         //open and close dialog
+        if(isTablet) return;
         onView(withId(id)).perform(click());
         pressBack();
         onView(withId(R.id.fragment_settings)).check(matches(isDisplayed()));
@@ -71,6 +79,7 @@ public class SettingsFragmentDialogs {
     //check that after changing temperature unit text in main screen will  show needed tempr unit
     public void tempUnitChange(){
         //select fahrenheit
+        if(isTablet) return;
         onView(withId(R.id.temp_units_button)).perform(click());
         onView(withText(R.string.fahrenheit)).inRoot(isDialog()).check(matches(isDisplayed()));
         onView(withText(R.string.fahrenheit)).inRoot(isDialog()).perform(click());

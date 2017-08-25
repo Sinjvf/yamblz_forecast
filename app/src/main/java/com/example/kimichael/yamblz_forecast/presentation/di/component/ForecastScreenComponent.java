@@ -4,8 +4,6 @@ import com.example.kimichael.yamblz_forecast.presentation.di.module.ForecastScre
 import com.example.kimichael.yamblz_forecast.presentation.di.scope.ForecastScreenScope;
 import com.example.kimichael.yamblz_forecast.presentation.view.forecast.ForecastFragment;
 
-import javax.inject.Scope;
-
 import dagger.Subcomponent;
 
 /**

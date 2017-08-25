@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice" >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time_1"
+            android:text="@string/interval_hour"
+            android:layout_margin="@dimen/margin_tiny"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time_2"
+            android:text="@string/interval_two_hours"
+            android:layout_margin="@dimen/margin_tiny"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time_3"
+            android:text="@string/interval_three_hours"
+            android:layout_margin="@dimen/margin_tiny"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time_5"
+            android:text="@string/interval_five_hours"
+            android:layout_margin="@dimen/margin_tiny"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time_day"
+            android:text="@string/interval_day"
+            android:layout_margin="@dimen/margin_tiny"/>
+    </RadioGroup>
+    <TextView
+        android:id="@+id/ok_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fab_margin"
+        android:text="@string/ok"
+        android:layout_gravity="right"
+        android:textSize="17sp" />
+
+</LinearLayout>

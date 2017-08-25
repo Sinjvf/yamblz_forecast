@@ -9,6 +9,5 @@ import javax.inject.Scope;
  * Created by Kim Michael on 16.07.17
  */
 @Scope
-@Retention(RetentionPolicy.RUNTIME)
 public @interface ForecastScreenScope {
 }

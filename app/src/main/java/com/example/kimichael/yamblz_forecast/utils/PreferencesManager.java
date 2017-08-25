@@ -2,41 +2,40 @@ package com.example.kimichael.yamblz_forecast.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.TimeUtils;
 import android.support.v7.preference.PreferenceManager;
 
 import com.example.kimichael.yamblz_forecast.R;
+import com.example.kimichael.yamblz_forecast.data.common.PlaceData;
 import com.google.android.gms.location.places.Place;
 import com.google.gson.Gson;
 
 /**
  * Created by Sinjvf on 30.07.2017.
+ * work with shared preferences
  */
 
 public class PreferencesManager {
-
-    private static final String MOSCOW_NAME = "Moscow";
-    private static final double MOSCOW_LAT = 55.7558;
-    private static final double MOSCOW_LNG = 37.6173;
-    private static final String TEMP_DEFAULT_UNITS = "Celsius";
-    private static final String DEFAULT_INTERVAL = "3600";
-
-
     private static final String KEY_TEMP_UNITS = "temp_units";
-    private static final String KEY_PLACE_DATA = "place_data";
     private static final String KEY_INTERVAL = "sync_interval";
+    private static final String KEY_INTERVAL_POS = "sync_interval_pos";
 
+    public static final int DEFAULT_INTERVAL = 3600;
+    private  final int[] intervals;
 
     private SharedPreferences sharedPreferences;
 
-    public PreferencesManager(SharedPreferences sharedPreferences) {
-        this.sharedPreferences = sharedPreferences;
+    public PreferencesManager(Context context) {
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        intervals = context.getResources().getIntArray(R.array.interval_values);
     }
 
-    public PreferencesManager(Context context) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        this.sharedPreferences = sp;
+    public PreferencesManager(Context context, SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
+        intervals = context.getResources().getIntArray(R.array.interval_values);
     }
 
     public boolean isTempCelsius() {
@@ -55,40 +54,21 @@ public class PreferencesManager {
         return sharedPreferences.contains(KEY_INTERVAL);
     }
 
-    public void saveInterval(String interval) {
-        sharedPreferences.edit().putString(KEY_INTERVAL, interval).apply();
+    public void saveInterval(int intervalPos) {
+        sharedPreferences.edit().putInt(KEY_INTERVAL, intervals[intervalPos]).apply();
+        sharedPreferences.edit().putInt(KEY_INTERVAL_POS, intervalPos).apply();
     }
 
-    public void saveInterval() {
-        sharedPreferences.edit().putString(KEY_INTERVAL, DEFAULT_INTERVAL).apply();
+    public int getIntervalPos() {
+        return sharedPreferences.getInt(KEY_INTERVAL_POS, 0);
     }
 
     public boolean isIntervalChanged(String key) {
         return key.equals(KEY_INTERVAL);
     }
 
-    public String getInterval() {
-        return sharedPreferences.getString(KEY_INTERVAL, DEFAULT_INTERVAL);
-    }
-
-    public void savePlace(@Nullable Place place) {
-        PlaceData data;
-        if (place != null && place.getName() != null && place.getLatLng() != null) {
-            data = new PlaceData(place.getName().toString(), place.getLatLng().latitude, place.getLatLng().longitude);
-        } else {
-            data = new PlaceData(MOSCOW_NAME, MOSCOW_LAT, MOSCOW_LNG);
-        }
-        String dataStr = (new Gson()).toJson(data);
-        sharedPreferences.edit().putString(KEY_PLACE_DATA, dataStr).apply();
-
-    }
-
-    @NonNull
-    public PlaceData getPlace() {
-        PlaceData defaultData = new PlaceData(MOSCOW_NAME, MOSCOW_LAT, MOSCOW_LNG);
-        String defaultStr = (new Gson()).toJson(defaultData);
-        String dataStr = sharedPreferences.getString(KEY_PLACE_DATA, defaultStr);
-        return (new Gson()).fromJson(dataStr, PlaceData.class);
+    public int getInterval() {
+        return sharedPreferences.getInt(KEY_INTERVAL, DEFAULT_INTERVAL);
     }
 
     public String getUnit() {

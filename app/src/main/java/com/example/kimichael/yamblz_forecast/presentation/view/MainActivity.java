@@ -4,33 +4,46 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.DecelerateInterpolator;
 
 import com.example.kimichael.yamblz_forecast.App;
 import com.example.kimichael.yamblz_forecast.R;
 import com.example.kimichael.yamblz_forecast.presentation.view.about.AboutFragment;
-import com.example.kimichael.yamblz_forecast.presentation.view.forecast.ForecastFragment;
+import com.example.kimichael.yamblz_forecast.presentation.view.main.phone.PhoneWeatherFragment;
+import com.example.kimichael.yamblz_forecast.presentation.view.main.tablet.TabletWeatherFragment;
 import com.example.kimichael.yamblz_forecast.presentation.view.settings.SettingsFragment;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ToolbarOwner {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @Nullable
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    private boolean isHomeAsUp = false;
+    private DrawerArrowDrawable homeDrawable;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({FRAGMENT_STATUS_WEATHER, FRAGMENT_STATUS_SETTINGS, FRAGMENT_STATUS_ABOUT, FRAGMENT_STATUS_NOT_CHOSEN})
-    private @interface ChosenFragmentStatus {}
+    private @interface ChosenFragmentStatus {
+    }
+
     public static final int FRAGMENT_STATUS_NOT_CHOSEN = -1;
     public static final int FRAGMENT_STATUS_WEATHER = 0;
     public static final int FRAGMENT_STATUS_SETTINGS = 1;
@@ -40,45 +53,51 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG_FORECAST = "forecast";
     public static final String TAG_ABOUT = "about";
 
-
-
-    private @MainActivity.ChosenFragmentStatus int chosenFragment;
-    private boolean isHomeAsUp = false;
-    private DrawerArrowDrawable homeDrawable;
-    DrawerLayout drawer;
+    private
+    @MainActivity.ChosenFragmentStatus
+    int chosenFragment;
 
     @Override
     @SuppressWarnings("ResourceType")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        homeDrawable = new DrawerArrowDrawable(toolbar.getContext());
-        toolbar.setNavigationIcon(homeDrawable);
-        toolbar.setNavigationOnClickListener(view -> {
-            if (drawer.isDrawerOpen(GravityCompat.START)){
-                drawer.closeDrawer(GravityCompat.START);
-            } else if (isHomeAsUp){
-                onBackPressed();
-            } else {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
-        App.getInstance().getForecastComponent();
+        initDrawer();
+
+        App.getInstance().getAppComponent().inject(this);
 
         if (savedInstanceState != null)
             changeFragment(savedInstanceState.getInt(getString(R.string.key_chosen_fragment), FRAGMENT_STATUS_WEATHER));
         else {
             chosenFragment = FRAGMENT_STATUS_NOT_CHOSEN;
             changeFragment(FRAGMENT_STATUS_WEATHER);
+        }
+    }
+
+    public boolean isTablet(){
+        return drawer==null;
+    }
+
+    private void initDrawer() {
+        if (drawer != null) {
+            homeDrawable = new DrawerArrowDrawable(toolbar.getContext());
+            toolbar.setNavigationIcon(homeDrawable);
+            toolbar.setNavigationOnClickListener(view -> {
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                } else if (isHomeAsUp) {
+                    onBackPressed();
+                } else {
+                    drawer.openDrawer(GravityCompat.START);
+                }
+            });
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
         }
     }
 
@@ -103,6 +122,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        if (drawer == null) {
+            super.onBackPressed();
+            return;
+        }
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (chosenFragment != FRAGMENT_STATUS_WEATHER) {
@@ -113,8 +136,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void setDrawer(@Nullable DrawerLayout drawer){
+        this.drawer = drawer;
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (drawer == null) return true;
         int id = item.getItemId();
 
         switch (id) {
@@ -128,35 +156,37 @@ public class MainActivity extends AppCompatActivity
             default:
                 changeFragment(FRAGMENT_STATUS_WEATHER);
         }
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void changeFragment(@ChosenFragmentStatus int chosenFragment) {
-
+    public void changeFragment(@ChosenFragmentStatus int chosenFragment) {
+        if (drawer == null) {
+            Fragment fgm = TabletWeatherFragment.getInstance();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_container, fgm, null).commit();
+            return;
+        }
         if (this.chosenFragment == chosenFragment)
             return;
 
         Fragment fragment;
         this.chosenFragment = chosenFragment;
-        String tag ;
+        String tag;
         switch (chosenFragment) {
             case FRAGMENT_STATUS_SETTINGS:
-                fragment = SettingsFragment.newInstance();
+                fragment = SettingsFragment.getInstance();
                 tag = TAG_SETTINGS;
                 setHomeAsUp(true);
                 break;
             case FRAGMENT_STATUS_ABOUT:
-                fragment = AboutFragment.newInstance();
+                fragment = AboutFragment.getInstance();
                 tag = TAG_ABOUT;
                 setHomeAsUp(true);
                 break;
             case FRAGMENT_STATUS_WEATHER:
             case FRAGMENT_STATUS_NOT_CHOSEN:
             default:
-                fragment = ForecastFragment.newInstance();
+                fragment = PhoneWeatherFragment.getInstance();
                 tag = TAG_FORECAST;
                 setHomeAsUp(false);
         }
@@ -165,7 +195,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void setHomeAsUp(boolean isHomeAsUp){
+    private void setHomeAsUp(boolean isHomeAsUp) {
         if (this.isHomeAsUp != isHomeAsUp) {
             this.isHomeAsUp = isHomeAsUp;
             ValueAnimator anim = isHomeAsUp ? ValueAnimator.ofFloat(0, 1) : ValueAnimator.ofFloat(1, 0);
@@ -177,5 +207,27 @@ public class MainActivity extends AppCompatActivity
             anim.setDuration(400);
             anim.start();
         }
+    }
+
+    @Override
+    public void setToolbarText(String title) {
+        toolbar.setTitle(title);
+    }
+
+    @Override
+    public void lockDrawer(Boolean lock) {
+
+        toolbar.getMenu().clear();
+        if (drawer == null) return;
+        if (lock) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        } else {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
+    }
+
+    @Override
+    public void clearMenu() {
+        toolbar.getMenu().clear();
     }
 }

@@ -10,13 +10,17 @@
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
     <string name="navigation_drawer_open">Открыть панель навигации</string>
     <string name="action_refresh">Обновить</string>
+    <string name="action_delete">Удалить</string>
     <string name="celcius">Цельсий</string>
     <string name="fahrenheit">Фаренгейт</string>
+
+    <string name="humidity">Влажность</string>
+    <string name="wind">Ветер</string>
     <string name="no_internet_message">Пожалуйста, проверьте свое подключение к интернету</string>
     <string name="pref_temp_units_title">Единицы измерения</string>
-    <string name="format_humidity">Влажность: %d %%</string>
+    <string name="format_humidity">%d %%</string>
     <string name="format_pressure">Давление: %d mm Hg</string>
-    <string name="format_wind">Ветер: %d м/с</string>
+    <string name="format_wind">%d м/с</string>
     <string name="interval_day">День</string>
     <string name="interval_five_hours">Пять часов</string>
     <string name="interval_hour">Час</string>
@@ -25,4 +29,11 @@
     <string name="pref_sync_title">Интервал обновления</string>
 
     <string name="choose_city">Выберите город</string>
+
+    <string name="delete_title">%s - хороший город</string>
+    <string name="delete_text">Вы уверены, что хотите удалить его из избранного?</string>
+    <string name="delete_ok">Удалить</string>
+    <string name="delete_cancel">Я передумал</string>
+    <string name="add_city">Добавить новый город</string>
+    <string name="new_city">Новый город</string>
 </resources>

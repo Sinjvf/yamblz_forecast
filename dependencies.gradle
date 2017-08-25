@@ -1,75 +1,92 @@
 ext.versions = [
 
-        dagger : '2.9',
-        daggerAnnotations : '1.0',
+        dagger               : '2.9',
+        daggerAnnotations    : '1.0',
 
-        junit: '4.12',
+        junit                : '4.12',
 
-        supportLibrary : '26.0.0-alpha1',
-        supportConstraint : '1.0.2',
+        supportLibrary       : '26.0.0-alpha1',
+        supportConstraint    : '1.0.2',
 
-        retrofit : '2.3.0',
+        retrofit             : '2.3.0',
 
-        rxJava : '2.1.1',
-        rxAndroid : '2.0.1',
+        rxJava1              : '1.2.1',
+        rxJava               : '2.1.1',
+        rxAndroid            : '2.0.1',
+        rxBinding            : "2.0.0",
 
-        butterknife : '8.7.0',
+        butterknife          : '8.7.0',
 
-        gson : '2.3.1',
-        okHttpInterceptor : '3.8.1',
+        gson                 : '2.3.1',
+        okHttpInterceptor    : '3.8.1',
 
-        firebaseJobDispatcher : '0.7.0',
+        firebaseJobDispatcher: '0.7.0',
 
-        apacheCommons : '3.0',
+        apacheCommons        : '3.0',
 
-        leakCanary: "1.5.1",
-        googlePlay: "11.0.2",
+        leakCanary           : "1.5.1",
+        googlePlay           : "11.0.2",
 
-        espresso:"2.2.2",
+        espresso             : "2.2.2",
 
-        robolectric:"3.4",
-        mockito:"1.10.19"
+        robolectric          : "3.4",
+        mockito              : "1.10.19",
+
+        timber               : "4.5.1",
+        storeIO              : "1.13.0",
 ]
 
 ext.libraries = [
-        dagger : "com.google.dagger:dagger:$versions.dagger",
-        daggerCompiler : "com.google.dagger:dagger-compiler:$versions.dagger",
-        daggerAnnotations : "javax.annotation:jsr250-api:$versions.daggerAnnotations",
+        storeIO              : "com.pushtorefresh.storio:sqlite:$versions.storeIO",
+        storeIOAnnotations   : "com.pushtorefresh.storio:sqlite-annotations:$versions.storeIO",
+        storeIOCompiler      : "com.pushtorefresh.storio:sqlite-annotations-processor:$versions.storeIO",
 
-        junit : "junit:junit:$versions.junit",
+        timber               : "com.jakewharton.timber:timber:$versions.timber",
 
-        supportAppCompat : "com.android.support:appcompat-v7:$versions.supportLibrary",
-        supportDesign : "com.android.support:design:$versions.supportLibrary",
-        supportConstraint : "com.android.support.constraint:constraint-layout:$versions.supportConstraint",
-        supportSupport : "com.android.support:support-v4:$versions.supportLibrary",
-        supportPreference : "com.android.support:preference-v7:$versions.supportLibrary",
+        dagger               : "com.google.dagger:dagger:$versions.dagger",
+        daggerCompiler       : "com.google.dagger:dagger-compiler:$versions.dagger",
+        daggerAnnotations    : "javax.annotation:jsr250-api:$versions.daggerAnnotations",
 
-        retrofit : "com.squareup.retrofit2:retrofit:$versions.retrofit",
-        retrofitRxAdapter : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
-        retrofitConverter : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
+        junit                : "junit:junit:$versions.junit",
 
-        rxJava : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
-        rxAndroid : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
+        supportAppCompat     : "com.android.support:appcompat-v7:$versions.supportLibrary",
+        supportDesign        : "com.android.support:design:$versions.supportLibrary",
+        supportConstraint    : "com.android.support.constraint:constraint-layout:$versions.supportConstraint",
+        supportSupport       : "com.android.support:support-v4:$versions.supportLibrary",
+        supportPreference    : "com.android.support:preference-v7:$versions.supportLibrary",
 
-        butterknife : "com.jakewharton:butterknife:$versions.butterknife",
-        butterknifeCompiler : "com.jakewharton:butterknife-compiler:$versions.butterknife",
+        retrofit             : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+        retrofitRxAdapter    : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+        retrofitConverter    : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
 
-        gson : "com.google.code.gson:gson:$versions.gson",
 
-        okHttpInterceptor : "com.squareup.okhttp3:logging-interceptor:$versions.okHttpInterceptor",
+        rxJava1              : "io.reactivex:rxjava:$versions.rxJava1",
+        rxJava               : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
+        rxAndroid            : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
+        rxBinding            : "com.jakewharton.rxbinding2:rxbinding:$versions.rxBinding",
+        rxBindingV4          : "com.jakewharton.rxbinding2:rxbinding-support-v4:$versions.rxBinding",
+        rxBindingV7          : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$versions.rxBinding",
 
-        firebaseJobDispatcher : "com.firebase:firebase-jobdispatcher:$versions.firebaseJobDispatcher",
+        butterknife          : "com.jakewharton:butterknife:$versions.butterknife",
+        butterknifeCompiler  : "com.jakewharton:butterknife-compiler:$versions.butterknife",
 
-        apacheCommons : "org.apache.commons:commons-lang3:$versions.apacheCommons",
+        gson                 : "com.google.code.gson:gson:$versions.gson",
 
-        leakCanary : "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary",
-        leakCanaryNoOp : "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary",
+        okHttpInterceptor    : "com.squareup.okhttp3:logging-interceptor:$versions.okHttpInterceptor",
 
-        googlePlay: "com.google.android.gms:play-services-places:$versions.googlePlay",
+        firebaseJobDispatcher: "com.firebase:firebase-jobdispatcher:$versions.firebaseJobDispatcher",
 
-        espressoContrib: "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
-        espressoCore: "com.android.support.test.espresso:espresso-core:$versions.espresso",
-        robolectric: "org.robolectric:robolectric:$versions.robolectric",
-        mockito:"org.mockito:mockito-core:$versions.mockito"
+        apacheCommons        : "org.apache.commons:commons-lang3:$versions.apacheCommons",
+
+        leakCanary           : "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary",
+        leakCanaryNoOp       : "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary",
+
+        googlePlay           : "com.google.android.gms:play-services-places:$versions.googlePlay",
+
+        espressoContrib      : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
+        espressoCore         : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+        robolectric          : "org.robolectric:robolectric:$versions.robolectric",
+        mockito              : "org.mockito:mockito-core:$versions.mockito"
+
 
 ]

@@ -9,5 +9,4 @@ import javax.inject.Scope;
  * Created on 22.07.2017.
  */
 @Scope
-@Retention(RetentionPolicy.RUNTIME)
 public @interface SettingsScreenScope {}

@@ -1,52 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
     android:id="@+id/fragment_settings"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/temp_units_button"
-        android:minHeight="?android:listPreferredItemHeight"
-        android:text="@string/pref_temp_units_title"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/small_padding"
-        android:paddingEnd="@dimen/small_padding"
-        android:clickable="true"
-        android:background="?attr/selectableItemBackground" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sync_interval_button"
-        android:minHeight="?android:listPreferredItemHeight"
-        android:text="@string/pref_sync_title"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/small_padding"
-        android:paddingEnd="@dimen/small_padding"
+        android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:background="?attr/selectableItemBackground" />
+        android:gravity="center_vertical"
+        android:minHeight="?android:listPreferredItemHeight"
+        android:paddingEnd="@dimen/padding"
+        android:paddingStart="@dimen/padding"
+        android:text="@string/pref_temp_units_title" />
 
-    <View
+    <include layout="@layout/item_separator" />
+
+    <TextView
+        android:id="@+id/sync_interval_button"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="?android:listPreferredItemHeight"
+        android:paddingEnd="@dimen/padding"
+        android:paddingStart="@dimen/padding"
+        android:text="@string/pref_sync_title" />
+
+    <include layout="@layout/item_separator" />
 
     <FrameLayout
         android:id="@+id/place_autocomplete_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

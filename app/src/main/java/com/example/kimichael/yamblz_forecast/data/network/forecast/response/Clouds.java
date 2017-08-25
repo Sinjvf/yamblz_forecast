@@ -2,18 +2,16 @@
 package com.example.kimichael.yamblz_forecast.data.network.forecast.response;
 
 import com.google.gson.annotations.SerializedName;
-
-public class Clouds {
+class Clouds {
 
     @SerializedName("all")
-    private Integer all;
+    private int all;
 
-    public Integer getAll() {
+    public int getAll() {
         return all;
     }
 
-    public void setAll(Integer all) {
+    public void setAll(int all) {
         this.all = all;
     }
-
 }

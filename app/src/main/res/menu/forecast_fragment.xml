@@ -5,7 +5,15 @@
     <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_reload"
         android:title="@string/action_refresh"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_cross"
+        android:title="@string/action_refresh"
+        app:showAsAction="ifRoom"/>
 
 </menu>
