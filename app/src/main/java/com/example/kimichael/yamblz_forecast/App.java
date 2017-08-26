@@ -61,8 +61,6 @@ public class App extends Application {
             Timber.plant(new CrashReportingTree());
         }
 
-
-
     }
 
     private static void setInstance(App instance) {
