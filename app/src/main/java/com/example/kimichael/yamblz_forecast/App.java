@@ -59,7 +59,6 @@ public class App extends Application {
             Timber.plant(new Timber.DebugTree());
         } else {
             Timber.plant(new CrashReportingTree());
-
         }
     }
 
